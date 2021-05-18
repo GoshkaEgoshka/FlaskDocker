@@ -2,20 +2,19 @@ version: '3.8'
 
 services:
   web:
+    env_file: database.conf
     build: 
       context: ./
       dockerfile: Dockerfile
-    expose: 
-      - 5000
     ports:
-      - 5000:5000
+      - "5000:5000"
     depends_on:
       - db
+
   db:
+    container_name: postgres
     image: postgres
     env_file: database.conf
-    expose:
-      - 5432
     ports: 
-      - 5432:5432
+      - "5432:5432"
   
