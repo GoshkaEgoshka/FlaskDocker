@@ -1,6 +1,6 @@
 database.conf
 venv/config.py
-/web/__pycache__
+/web/__pycache__/
 venv/
 .vscode
 .idea

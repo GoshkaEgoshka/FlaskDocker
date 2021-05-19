@@ -40,12 +40,12 @@ def add_user():
     return json.dumps('Added'), 200
 
 
-@app.route('/<user_id>', methods=['GET', 'DELETE', 'PUTCH'])
+@app.route('/<user_id>', methods=['GET', 'DELETE', 'PUT'])
 def read_update_delete_user_by_id(user_id):
     """
         Reads, Updates, Deletes user
     """
-    if request.method == 'PUTCH':
+    if request.method == 'PUT':
         data = request.get_json()
         new_username = data['username']
         new_email = data['email']

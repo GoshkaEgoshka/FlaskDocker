@@ -23,13 +23,24 @@ def get_users():
     return all_users
 
 
+def find_by_id(func):
+    """
+        Decorator checks if user exists in DB
+    """
+    def wrapper(user_id):
+        user = Users.query.filter_by(id=user_id).first()
+        if not user:
+            return 'User does not exist!'
+        return func(user_id)
+    return wrapper
+
+
+@find_by_id
 def get_user_by_id(user_id):
     """
         Get user by id
     """
-    user = find_by_id(user_id)
-    if isinstance(user, str):
-        return user
+    user = Users.query.filter_by(id=user_id).first()
     return {
             'id': user.id,
             'username': user.username,
@@ -37,36 +48,20 @@ def get_user_by_id(user_id):
             }
 
 
+@find_by_id
 def remove(user_id):
     """
         Remove user from DB
     """
-    user = find_by_id(user_id)
-    if isinstance(user, str):
-        return user
     Users.query.filter_by(id=user_id).delete()
     db.session.commit() #pylint: disable=no-member
     return 'Deleted'
 
 
-def find_by_id(user_id):
-    """
-        Find user by if user exists
-    """
-    user = Users.query.filter_by(id=user_id).first()
-    if not user:
-        return 'User does not exist!'
-    return user
-
-
-def update_user(user_id, username, email):
+def update_user(**kwargs):
     """
         Edits username and email in DB
     """
-    user = find_by_id(user_id)
-    if isinstance(user, str):
-        return user
-    user.username = username
-    user.email = email
+    Users.query.filter_by(id=kwargs[0]).update(**kwargs)
     db.session.commit() #pylint: disable=no-member
     return 'Updated'
