@@ -2,10 +2,16 @@
     Endpoints
 """
 import json
+
 from flask import request
 
 from init import create_app
-from database import add_user_to_db, get_users, get_user_by_id, remove, update_user
+from database import (
+    add_user_to_db, get_users,
+    get_user_by_id, remove_user,
+    update_user
+)
+
 
 app = create_app()
 
@@ -40,7 +46,7 @@ def add_user():
     return json.dumps('Added'), 200
 
 
-@app.route('/<user_id>', methods=['GET', 'DELETE', 'PUT'])
+@app.route('/<int:user_id>', methods=['GET', 'DELETE', 'PUT'])
 def read_update_delete_user_by_id(user_id):
     """
         Reads, Updates, Deletes user
@@ -49,9 +55,11 @@ def read_update_delete_user_by_id(user_id):
         data = request.get_json()
         new_username = data['username']
         new_email = data['email']
-        result = update_user(user_id=user_id, username=new_username, email=new_email)
+        result = update_user(
+            id=user_id, username=new_username, email=new_email
+        )
     elif request.method == 'GET':
-        result = get_user_by_id(user_id)
+        result = get_user_by_id(id=user_id)
     elif request.method == 'DELETE':
-        result = remove(user_id)
+        result = remove_user(id=user_id)
     return json.dumps(result), 200
