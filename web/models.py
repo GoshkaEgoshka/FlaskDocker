@@ -1,17 +1,22 @@
+"""
+    Using for DB tables
+"""
 from flask_sqlalchemy import SQLAlchemy
-from web.main import app
-
-db = SQLAlchemy(app)
 
 
-class User(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    username = db.Column(db.String(80))
-    email = db.Column(db.String(80), unique=True)
+db = SQLAlchemy()
 
-    def __init__(self, username, email):
+
+class Users(db.Model): #pylint: disable=too-few-public-methods
+    """
+        Discribes User table in DB
+    """
+    __tablename__ = 'users'
+    id = db.Column(db.Integer, primary_key=True) #pylint: disable=no-member
+    username = db.Column(db.String(80)) #pylint: disable=no-member
+    email = db.Column(db.String(80), unique=True) #pylint: disable=no-member
+
+    def __init__(self, user_id, username, email):
+        self.id = user_id #pylint: disable=invalid-name
         self.username = username
         self.email = email
-
-    def __repr__(self):
-        return '<User %r>' % self.username

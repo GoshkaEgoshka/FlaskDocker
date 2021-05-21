@@ -1,2 +1,7 @@
 database.conf
 venv/config.py
+/web/__pycache__/
+venv/
+.vscode
+.idea
+__pycache__
