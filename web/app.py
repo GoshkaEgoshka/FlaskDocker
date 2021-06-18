@@ -5,19 +5,21 @@ import json
 
 from flask import request
 
-from init import create_app
-from database import (
+from .__init__ import create_app
+from .database import (
     add_user_to_db, get_users,
     get_user_by_id, remove_user,
     update_user
 )
+from .validation import UserValidation
 
 
 app = create_app()
+user_validation = UserValidation()
 
 
 @app.route('/')
-def index():
+async def index():
     """
         Main page
     """
@@ -25,41 +27,48 @@ def index():
 
 
 @app.route('/users', methods=['GET'])
-def show_users():
+async def show_users():
     """
         Shows all users
     """
-    all_users = get_users()
+    all_users = await get_users()
     return json.dumps(all_users), 200
 
 
 @app.route('/add_user', methods=['POST'])
-def add_user():
+async def add_user():
     """
         Add user
     """
     data = request.get_json()
+    errors = user_validation.validate(data)
+    if errors:
+        return json.dumps('User parameters are not valid'), 400
     user_id = data['id']
     username = data['username']
     email = data['email']
-    add_user_to_db(user_id=user_id, username=username, email=email)
+    await add_user_to_db(user_id=user_id, username=username, email=email)
     return json.dumps('Added'), 200
 
 
 @app.route('/<int:user_id>', methods=['GET', 'DELETE', 'PUT'])
-def read_update_delete_user_by_id(user_id):
+async def read_update_delete_user_by_id(user_id):
     """
         Reads, Updates, Deletes user
     """
     if request.method == 'PUT':
         data = request.get_json()
+        errors = user_validation.validate(data)
+        if errors:
+            return json.dumps('User parameters are not valid'), 400
         new_username = data['username']
         new_email = data['email']
-        result = update_user(
+        result = await update_user(
             id=user_id, username=new_username, email=new_email
         )
     elif request.method == 'GET':
-        result = get_user_by_id(id=user_id)
+        result = await get_user_by_id(id=user_id)
     elif request.method == 'DELETE':
-        result = remove_user(id=user_id)
+        result = await remove_user(id=user_id)
     return json.dumps(result), 200
+

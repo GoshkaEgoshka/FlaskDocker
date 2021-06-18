@@ -2,10 +2,10 @@
     This module discribes work with DB.
     There are add, delete, get, update methods.
 """
-from models import db, Users
+from .models import db, Users
 
 
-def add_user_to_db(**kwargs):
+async def add_user_to_db(**kwargs):
     """
         Add user to DB
     """
@@ -14,7 +14,7 @@ def add_user_to_db(**kwargs):
     db.session.commit() #pylint: disable=no-member
 
 
-def get_users():
+async def get_users():
     """
         Get all users from DB
     """
@@ -33,32 +33,31 @@ def find_user_by_id(func):
     """
         Decorator checks if user exists in DB
     """
-    def wrapper(**kwargs):
+    async def wrapper(**kwargs):
         query = Users.query.filter_by(
             id=kwargs['id']
         )
         user = query.first()
         if not user:
             return 'User does not exist!'
-        return func(query, **kwargs)
+        return await func(query, **kwargs)
     return wrapper
 
 
 @find_user_by_id
-def get_user_by_id(query, **kwargs):
+async def get_user_by_id(query, **kwargs):
     """
         Get user by id
     """
     user = query.first()
     return {
-        'id': user.id,
-        'username': user.username,
-        'email': user.email
+    'id': user.id,
+    'username': user.username,
+    'email': user.email
     }
 
-
 @find_user_by_id
-def remove_user(query, **kwargs):
+async def remove_user(query, **kwargs):
     """
         Remove user from DB
     """
@@ -68,7 +67,7 @@ def remove_user(query, **kwargs):
 
 
 @find_user_by_id
-def update_user(query, **kwargs):
+async def update_user(query, **kwargs):
     """
         Edits username and email in DB
     """
