@@ -1,15 +1,14 @@
 """
     Validation module
 """
-import json
 
-from marshmallow import Schema, fields
+from marshmallow import Schema, fields, validate
 
 
 class UserValidation(Schema):
     """
         Class for validation users data
     """
-    user_id = fields.Int(required=True)
-    username = fields.Str(required=True)
-    email = fields.Email(required=True)
+    id = fields.Int(required=True, validate=validate.Range(min=1, max=999999))
+    username = fields.Str(required=True, validate=validate.Length(min=2, max=20))
+    email = fields.Email(required=True, validate=validate.Length(min=8, max=36))

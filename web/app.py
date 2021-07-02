@@ -5,13 +5,13 @@ import json
 
 from flask import request
 
-from .__init__ import create_app
-from .database import (
+from web import create_app
+from web.database import (
     add_user_to_db, get_users,
     get_user_by_id, remove_user,
     update_user
 )
-from .validation import UserValidation
+from web.validation import UserValidation
 
 
 app = create_app()
@@ -71,4 +71,3 @@ async def read_update_delete_user_by_id(user_id):
     elif request.method == 'DELETE':
         result = await remove_user(id=user_id)
     return json.dumps(result), 200
-

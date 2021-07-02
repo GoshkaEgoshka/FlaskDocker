@@ -2,7 +2,7 @@
     This module discribes work with DB.
     There are add, delete, get, update methods.
 """
-from .models import db, Users
+from web.models import db, Users
 
 
 async def add_user_to_db(**kwargs):
