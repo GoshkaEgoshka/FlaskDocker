@@ -3,9 +3,9 @@
 """
 import json
 
-from flask import request
-
-from web import create_app
+from flask import request, Flask
+from flask_migrate import Migrate
+from web.models import db
 from web.database import (
     add_user_to_db, get_users,
     get_user_by_id, remove_user,
@@ -13,8 +13,11 @@ from web.database import (
 )
 from web.validation import UserValidation
 
+app = Flask(__name__)
+app.config.from_pyfile('config.py')
+db.init_app(app)
+migrate = Migrate(app, db)
 
-app = create_app()
 user_validation = UserValidation()
 
 

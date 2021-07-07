@@ -3,3 +3,4 @@ flask-sqlalchemy==2.5.1
 psycopg2==2.8.6
 pylint==2.8.2
 marshmallow==3.12.1
+Flask-Migrate==3.0.1

@@ -1,7 +1,9 @@
 database.conf
 venv/config.py
 /web/__pycache__/
+/web/__init__.pyc
 venv/
 .vscode
 .idea
 __pycache__
+.DS_Store
