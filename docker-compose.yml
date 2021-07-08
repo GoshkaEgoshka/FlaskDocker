@@ -10,6 +10,8 @@ services:
       - "5000:5000"
     depends_on:
       - db
+    volumes: 
+      - ./migrations:/app/migrations
 
   db:
     container_name: postgres
