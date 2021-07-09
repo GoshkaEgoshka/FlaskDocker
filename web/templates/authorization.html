@@ -1,0 +1,28 @@
+<html>
+    <head>
+        <link type="text/css" rel="stylesheet" href="../static/authorization.css" />
+    </head>
+    <div class="mainbox">
+    <h3 class="title">Login</h3>
+    <div class="box">
+        <form method="POST" action="/login">
+            <div class="field">
+                {% with messages = get_flashed_messages() %}
+                {% if messages %}
+            <div class="notification-failed-login">
+                    {{ messages[0] }}
+            </div>
+                {% endif %}
+                {% endwith %}
+                <div class="control">
+                    <input class="email_field" type="email" name="email" placeholder="Your Email" autofocus="">
+                </div>
+            </div>
+            <div id="login_button">
+                <button class="button"><div id='login'>Login</div></button>
+            </div>
+        </form>
+    </div>
+</div>
+</html>
+
