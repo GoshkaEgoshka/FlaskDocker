@@ -20,3 +20,4 @@ class Users(db.Model): #pylint: disable=too-few-public-methods
         self.id = user_id #pylint: disable=invalid-name
         self.username = username
         self.email = email
+        
