@@ -1,0 +1,62 @@
+body {
+    background-color: white;
+}
+
+.mainbox {
+    background-color: #6ccdf8;
+    margin-top: 15%;
+    margin-left: 35%;
+    margin-right: 35%;
+    padding-bottom: 20;
+    border-radius: 5pt;
+}
+
+.title {
+    padding-top: 20;
+    text-align: center;
+    color: white;
+    font-size: 30;
+}
+
+.control {
+    text-align: center;
+}
+
+.email_field {
+    position: relative;
+    text-align: center;
+    outline: none;
+    padding-left: 5%;
+    padding-right: 5%;
+    padding-top: 2%;
+    padding-bottom: 2%;
+    border-radius: 5pt;
+    border: none;
+}
+
+#login_button {
+    text-align: center;
+    margin-top: 20;
+}
+
+.button {
+    background-color: rgb(14, 206, 24);
+    border-radius: 5pt;
+    border: none;
+    padding-left: 3%;
+    padding-right: 3%;
+    padding-top: 2%;
+    padding-bottom: 2%;
+}
+
+#login {
+    color: white;
+}
+
+.notification-failed-login {
+    background-color: crimson;
+    text-align: center;
+    padding-top: 2;
+    padding-bottom: 2;
+    margin-bottom: 5;
+}

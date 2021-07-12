@@ -3,9 +3,9 @@
 """
 import json
 
-from flask import request, Flask
+from flask import request, Flask, render_template, redirect, url_for, session, flash
 from flask_migrate import Migrate
-from web.models import db
+from web.models import db, Users
 from web.database import (
     add_user_to_db, get_users,
     get_user_by_id, remove_user,
@@ -13,8 +13,11 @@ from web.database import (
 )
 from web.validation import UserValidation
 
-app = Flask(__name__)
+app = Flask(__name__, template_folder='templates')
 app.config.from_pyfile('config.py')
+app.secret_key = 'super_secret'
+# login_manager = LoginManager()
+# login_manager.init_app(app)
 db.init_app(app)
 migrate = Migrate(app, db)
 
@@ -26,7 +29,23 @@ async def index():
     """
         Main page
     """
-    return 'Flask app'
+    return render_template('index.html', email=session['email'])
+
+
+@app.route('/login',  methods=['POST'])
+async def post_authorization():
+    email = request.form.get('email')
+
+    user = Users.query.filter_by(email=email).first()
+    if user:
+        session['email'] = email
+        return redirect(url_for('index'))
+    flash('Your email is wrong. Try again.')
+    return render_template('authorization.html')
+
+@app.route('/login',  methods=['GET'])
+async def get_authorization():
+    return render_template('authorization.html')
 
 
 @app.route('/users', methods=['GET'])
