@@ -7,6 +7,7 @@ RUN pip install -r requirements.txt
 COPY web ./web
 COPY run.py ./
 COPY migrations ./migrations
+COPY tests ./tests
 ENV FLASK_APP=web/app.py
 ENV FLASK_RUN_HOST=0.0.0.0
 EXPOSE 5000

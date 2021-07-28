@@ -12,6 +12,7 @@ services:
       - db
     volumes: 
       - ./migrations:/app/migrations
+      - ./tests/:/app/tests
 
   db:
     container_name: postgres
