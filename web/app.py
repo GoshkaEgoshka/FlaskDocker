@@ -34,6 +34,9 @@ async def index():
 
 @app.route('/login',  methods=['POST'])
 async def post_authorization():
+    """
+        Post method authorization
+    """
     email = request.form.get('email')
 
     user = Users.query.filter_by(email=email).first()
@@ -43,8 +46,12 @@ async def post_authorization():
     flash('Your email is wrong. Try again.')
     return render_template('authorization.html')
 
+
 @app.route('/login',  methods=['GET'])
 async def get_authorization():
+    """
+        Post method authorization
+    """
     return render_template('authorization.html')
 
 
