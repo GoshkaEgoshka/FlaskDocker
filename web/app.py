@@ -12,19 +12,19 @@ from web.database import (
     update_user
 )
 from web.validation import UserValidation
+from web.login_helper import login_check
 
 app = Flask(__name__, template_folder='templates')
 app.config.from_pyfile('config.py')
 app.secret_key = 'super_secret'
-# login_manager = LoginManager()
-# login_manager.init_app(app)
 db.init_app(app)
 migrate = Migrate(app, db)
 
 user_validation = UserValidation()
-
+   
 
 @app.route('/')
+@login_check
 async def index():
     """
         Main page
@@ -42,6 +42,7 @@ async def post_authorization():
     user = Users.query.filter_by(email=email).first()
     if user:
         session['email'] = email
+        session['login'] = True
         return redirect(url_for('index'))
     flash('Your email is wrong. Try again.')
     return render_template('authorization.html')

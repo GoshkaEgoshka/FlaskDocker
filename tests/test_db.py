@@ -2,7 +2,6 @@ from unittest import TestCase
 from flask.cli import with_appcontext
 
 import pytest
-import asyncio
 
 from aiounittest import AsyncTestCase
 
