@@ -4,6 +4,11 @@
         <link type="text/css" rel="stylesheet" href="../static/index.css" />
         <title>My Flask Project</title>
         <body>
+            <form method="GET" action="/logout">
+                <div id="logout">
+                    <button class="button"><div>Logout</div></button>
+                </div>
+            </form>
             <h1>Welcome, {{email}}!</h1>
         </body>
     </head>
