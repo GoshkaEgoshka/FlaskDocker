@@ -7,3 +7,19 @@ body {
 h1 {
     color: white;
 }
+#logout {
+    margin-top: 1px;
+    margin-right: 2px;
+    position:absolute;
+    top:2px;
+    right:2px;
+
+}
+
+.button {
+    background-color: rgb(221, 20, 47);
+    border-radius: 5pt;
+    border: none;
+    width: 50pt;
+    height: 20pt;
+}

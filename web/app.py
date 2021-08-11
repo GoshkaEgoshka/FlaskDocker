@@ -56,6 +56,16 @@ async def get_authorization():
     return render_template('authorization.html')
 
 
+@app.route('/logout', methods=['GET'])
+async def logout():
+    """
+        Logout method
+    """
+    session['email'] = None
+    session['login'] = False
+    return render_template('authorization.html')
+
+
 @app.route('/users', methods=['GET'])
 async def show_users():
     """
